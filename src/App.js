@@ -1,9 +1,13 @@
-import Home from "./components/Pages/home/Home";
+import Home from "./Pages/home/Home";
+import Login from "./Pages/login/Login";
+import List from "./Pages/list/List";
+import New from "./Pages/new/New";
+import Single from "./Pages/single/Single";
+
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/Pages/login/Login";
-import List from "./components/Pages/list/List";
-import Single from "./components/Pages/single/Single";
-import New from "./components/Pages/new/New";
+
+
 
 function App() {
   return (

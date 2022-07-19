@@ -1,7 +1,26 @@
 .home {
-    display: flex;
-    .homeContainer {
-      
-        flex: 6
+  display: flex;
+  .homeContainer {
+    flex: 6;
+    .widgets,
+    .charts {
+      display: flex;
+      padding: 2rem;
+      gap: 2rem;
     }
+    .charts {
+      padding: 0.5rem 2rem;
+    }
+    .listContainer {
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      padding: 2rem;
+      margin: 2rem;
+      .listTitle{
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: grey;
+        margin-bottom: 15px
+      }
+    }
+  }
 }
