@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./widget.scss";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
@@ -6,15 +6,22 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import { query, where, collection, getDoc, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
+import { Link } from "react-router-dom";
 function Widget({ type }) {
+  const [diffState, setDiffState] = useState(null);
+  const [amount, setAmount] = useState(null);
+  const [diff, setDiff] = useState(null);
   let data;
 
   switch (type) {
     case "user":
       data = {
-        title: "USERS",
+        title: "Nowi użytkownicy ",
         isMoney: false,
-        link: "See all users",
+        query: "users",
+        link: "Wszyscy użytkownicy",
         icon: (
           <PersonOutlineIcon
             className="icon"
@@ -25,7 +32,8 @@ function Widget({ type }) {
       break;
     case "order":
       data = {
-        title: "ORDERS",
+        title: "Zakończone wizyty",
+        query: "meetings",
         isMoney: false,
         link: "View all orders",
         icon: (
@@ -40,6 +48,7 @@ function Widget({ type }) {
       data = {
         title: "EARNINGS",
         isMoney: true,
+        query: "earnings",
         link: "View net earnings",
         icon: (
           <MonetizationOnOutlinedIcon
@@ -52,10 +61,11 @@ function Widget({ type }) {
         ),
       };
       break;
-    case "balance":
+    case "product":
       data = {
-        title: "BALANCE",
-        isMoney: true,
+        title: "PRODUCTS",
+        isMoney: false,
+        query: "products",
         link: "See details",
         icon: (
           <AccountBalanceWalletOutlinedIcon
@@ -69,24 +79,70 @@ function Widget({ type }) {
     default:
       break;
   }
+  useEffect(() => {
+    const fetchData = async () => {
+      const today = new Date();
+      const lastMonth = new Date(new Date().setMonth(today.getMonth() - 1));
+      const prevMonth = new Date(new Date().setMonth(today.getMonth() - 2));
 
-  const amount = 100;
-  const diff = 20;
+      const lastMonthQuery = query(
+        collection(db, "users"),
+        where("timestamp", "<=", today),
+        where("timestamp", ">", lastMonth)
+      );
+
+      // // const prevMonthQuery = query(
+      // //   collection(db, "users"),
+      // //   where("timestamp", "<=", lastMonth),
+      // //   where("timestamp", ">", prevMonth)
+      // // );
+
+      const lastMonthData = await getDocs(lastMonthQuery);
+
+      // const prevMonthData = await getDocs(prevMonthQuery);
+     
+      
+   
+      // setDiff(
+      //   (
+      //     ((lastMonthData.docs.length - prevMonthData.docs.length) /
+      //       prevMonthData.docs.length) *
+      //     100
+      //   ).toFixed(1)
+      // );
+    };
+
+    fetchData();
+  }, []);
+  // console.log(diff);
   return (
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"}
+          {data.isMoney && "PLN "}
           {amount}
         </span>
-        <span className="link">{data.link}</span>
+        <Link className="link" to={`/${data.query.toLocaleLowerCase()}`}>
+          <span className="link">{data.link}</span>
+        </Link>
       </div>
 
       <div className="right">
-        <div className="percentage positive">
-          <KeyboardArrowUpOutlinedIcon />
-          {diff}%
+        <div
+          className={`percentage ${
+            +diff && diff < 0 ? "negative" : "positive"
+          }`}
+        >
+          {!+diff || diff === "Infinity" ? (
+            ""
+          ) : diff > 0 ? (
+            <KeyboardArrowUpOutlinedIcon />
+          ) : (
+            <KeyboardArrowDownOutlinedIcon />
+          )}
+
+          {diff === "Infinity" || !+diff ? "bd." : `${diff}%`}
         </div>
         {data.icon}
       </div>

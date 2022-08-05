@@ -1,11 +1,11 @@
 .widget {
   display: flex;
   flex: 1;
-  padding: 1rem;
+  padding: 2rem;
   justify-content: space-between;
   box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
   border-radius: 1rem;
-  height: 10rem;
+  height: 12rem;
   .left,
   .right {
     display: flex;
@@ -24,6 +24,8 @@
       width: max-content;
       font-size: 1.2rem;
       border-bottom: 1px solid gray;
+      text-decoration: none;
+      color: #333
     }
     .percentage {
       display: flex;

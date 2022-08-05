@@ -13,17 +13,18 @@ const Home = () => {
       <div className="homeContainer">
         <Navbar />
         <div className="widgets">
-          <Widget type='user' />
-          <Widget type='order' />
-          <Widget type='earning' />
-          <Widget type='balance' />
+          <Widget type="user" />
+          <Widget type="product" />
+          <Widget type="order" />
+          <Widget type="earning" />
         </div>
+
         <div className="charts">
           <Featured />
-          <Chart />
+          <Chart title="Last 6 months (Revenue)" aspect={2 / 1} />
         </div>
         <div className="listContainer">
-          <div className="listTitle">Last transaction</div>
+          <div className="listTitle">Ostatnie umówione wizyty</div>
           <Table />
         </div>
       </div>

@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 import './chart.scss'
-function Chart() {
+function Chart({aspect, title}) {
     const data = [
      {name: 'January', total: 1200},
      {name: 'February', total: 2100},
@@ -21,10 +21,11 @@ function Chart() {
     ]
   return (
     <div className="chart">
-      <div className="title">Last 6 Months (Revenue)</div>
-      <ResponsiveContainer width="100%" aspect={2 / 1}>
-        <AreaChart
-          width={730}
+      <div className="title">{title}</div>
+      <ResponsiveContainer width="100%" aspect={aspect}>
+        <AreaChart 
+        
+         width={730}
           height={250}
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
@@ -35,9 +36,9 @@ function Chart() {
               <stop offset="80%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" stroke='#555'/>
-         
-          <CartesianGrid strokeDasharray="3 3" className='chartGrid'/>
+          <XAxis dataKey="name" stroke="#555" />
+
+          <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Area
             type="monotone"

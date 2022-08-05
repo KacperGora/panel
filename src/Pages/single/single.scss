@@ -1,0 +1,72 @@
+.single {
+  display: flex;
+  width: 100%;
+  .singleContainer {
+    flex: 6;
+    .top {
+      padding: 2rem;
+      display: flex;
+      gap: 2rem;
+      .left {
+        flex: 1;
+        padding: 2rem;
+        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+        position: relative;
+        .editButton {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 5px;
+          font-size: 1.2rem;
+          color: #7451f8;
+          background-color: #7551f827;
+          border-radius: 0 0 0 5px;
+          cursor: pointer;
+        }
+        .item {
+          display: flex;
+          gap: 2rem;
+          .itemImg {
+            width: 10rem;
+            height: 10rem;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          .details {
+            .itemTitle {
+              margin-bottom: 1rem;
+              color: #555;
+            }
+            .detailItem {
+              margin-bottom: 1rem;
+            }
+            .itemKey {
+              font-weight: bold;
+              color: gray;
+              margin-right: 5px;
+            }
+            .itemValue {
+              font-weight: 300;
+              color: gray;
+            }
+          }
+        }
+      }
+      .right {
+        flex: 2;
+        padding: 2rem;
+        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      }
+    }
+    .bottom {
+      padding: 2rem;
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+      margin: 2rem;
+    }
+    .title {
+      font-size: 16px;
+      color: lightgray;
+      margin-bottom: 2rem;
+    }
+  }
+}

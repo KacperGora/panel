@@ -1,8 +1,10 @@
 .chart {
   flex: 4;
+  flex-grow: none;
   box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
   padding: 1rem;
   color: grey;
+
 
   .title {
     font-size: 1.6rem;
